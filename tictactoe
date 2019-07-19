@@ -127,7 +127,7 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'player2'
+                    turn = 'Player 2'
 
         else:
             # Player2's turn.
