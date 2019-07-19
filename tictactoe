@@ -106,7 +106,7 @@ while True:
     theBoard = [' '] * 10
     playerLetter1, playerLetter2 = inputPlayerLetter1()
     turn = whoGoesFirst()
-    print(turn + ' will go first.') #Still need to fix this
+    #print(turn + ' will go first.') #Still need to fix this
     gameIsPlaying = True
 
     while gameIsPlaying:
