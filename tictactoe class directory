@@ -1,0 +1,52 @@
+from tictactoe2 import XO
+print('Welcome to Tic Tac Toe! Grab your friend because this is a player vs. player game.')
+print('Decide now who is going to be Player 1 and Player 2. Press enter to continue')
+input()
+
+while True:
+    # Reset the board
+    theBoard = [' '] * 10
+    playerLetter1, playerLetter2 = XO.inputPlayerLetter1()
+    turn = XO.whoGoesFirst()
+    print(turn + ' will go first.')
+    gameIsPlaying = True
+
+    while gameIsPlaying:
+        if turn == 'Player 1':
+            # Player1's turn.
+            XO.drawBoard(theBoard)
+            move1 = XO.getPlayer1Move(theBoard)
+            XO.makeMove(theBoard, playerLetter1, move1)
+
+            if XO.isWinner(theBoard, playerLetter1):
+                XO.drawBoard(theBoard)
+                print('Player 1 has won!')
+                gameIsPlaying = False
+            else:
+                if XO.isBoardFull(theBoard):
+                    XO.drawBoard(theBoard)
+                    print('The game is a tie!')
+                    break
+                else:
+                    turn = 'Player 2'
+
+        else:
+            # Player2's turn.
+            XO.drawBoard(theBoard)
+            move2 = XO.getPlayer2Move(theBoard)
+            XO.makeMove(theBoard, playerLetter2, move2)
+
+            if XO.isWinner(theBoard, playerLetter2):
+                XO.drawBoard(theBoard)
+                print('Player 2 has won!')
+                gameIsPlaying = False
+            else:
+                if XO.isBoardFull(theBoard):
+                    XO.drawBoard(theBoard)
+                    print('The game is a tie!')
+                    break
+                else:
+                    turn = 'Player 1'
+
+    if not XO.playAgain():
+        break
