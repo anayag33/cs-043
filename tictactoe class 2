@@ -1,0 +1,167 @@
+# Tic Tac Toe
+
+import random
+
+class Board:
+    def drawBoard(board):
+        # This function prints out the board that it was passed.
+
+        # "board" is a list of 10 strings representing the board (ignore index 0)
+        print('   |   |')
+        print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
+        print('   |   |')
+        print('-----------')
+        print('   |   |')
+        print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
+        print('   |   |')
+        print('-----------')
+        print('   |   |')
+        print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
+        print('   |   |')
+
+    def makeMove(board, letter, move):
+        board[move] = letter
+
+
+    def getBoardCopy(board):
+        # Make a duplicate of the board list and return it the duplicate.
+        dupeBoard = []
+
+        for i in board:
+            dupeBoard.append(i)
+            
+        return dupeBoard
+
+    def isSpaceFree(board, move):
+        # Return true if the passed move is free on the passed board.
+        return board[move] == ' '
+
+    def isBoardFull(board):
+        # Return True if every space on the board has been taken. Otherwise return False.
+        for i in range(1, 10):
+            if Board.isSpaceFree(board, i):
+                return False
+        return True
+
+
+
+class Player:
+
+    def inputPlayerLetter1():
+        # Lets the player1 type which letter they want to be.
+        # Returns a list with the player1's letter as the first item, and the player2's letter as the second.
+        letter1 = ''
+        while not (letter1 == 'X' or letter1 == 'O'):
+            print('Player 1, do you want to be X or O?')
+            letter1 = input().upper()
+
+        # the first element in the tuple is the player1's letter, the second is the player2's letter.
+        if letter1 == 'X':
+            return ['X', 'O']
+        else:
+            return ['O', 'X']
+
+    def whoGoesFirst():
+        # Randomly choose the player who goes first.
+        if random.randint(0, 1) == 0:
+            return 'player 2'
+        else:
+            return 'player 1'
+
+    def playAgain():
+        # This function returns True if the player wants to play again, otherwise it returns False.
+        print('Do you want to play again? (yes or no)')
+        return input().lower().startswith('y')
+
+
+
+    def isWinner(bo, le):
+        # Given a board and a player's letter, this function returns True if that player has won.
+        # We use bo instead of board and le instead of letter so we don't have to type as much.
+        return ((bo[7] == le and bo[8] == le and bo[9] == le) or # across the top
+        (bo[4] == le and bo[5] == le and bo[6] == le) or # across the middle
+        (bo[1] == le and bo[2] == le and bo[3] == le) or # across the bottom
+        (bo[7] == le and bo[4] == le and bo[1] == le) or # down the left side
+        (bo[8] == le and bo[5] == le and bo[2] == le) or # down the middle
+        (bo[9] == le and bo[6] == le and bo[3] == le) or # down the right side
+        (bo[7] == le and bo[5] == le and bo[3] == le) or # diagonal
+        (bo[9] == le and bo[5] == le and bo[1] == le)) # diagonal
+
+
+    def getPlayer1Move(board):
+        # Let the player1 type in his move.
+        move1 = ' '
+        while move1 not in '1 2 3 4 5 6 7 8 9'.split() or not Board.isSpaceFree(board, int(move1)):
+            print('What is your next move Player 1? (1-9)')
+            move1 = input()
+        return int(move1)
+    
+    def getPlayer2Move(board):
+        # Let the player2 type in his move.
+        move2 = ' '
+        while move2 not in '1 2 3 4 5 6 7 8 9'.split() or not Board.isSpaceFree(board, int(move2)):
+            print('What is your next move Player 2? (1-9)')
+            move2 = input()
+        return int(move2)
+
+
+class TicTac:
+
+    def startGame():
+        print('Welcome to Tic Tac Toe! Grab your friend because this is a player vs. player game.')
+        print('Decide now who is going to be Player 1 and Player 2. Press enter to continue')
+        input()
+
+        while True:
+            # Reset the board
+            theBoard = [' '] * 10
+            playerLetter1, playerLetter2 = Player.inputPlayerLetter1()
+            turn = Player.whoGoesFirst()
+            #print(turn + ' will go first.') #Still need to fix this
+            gameIsPlaying = True
+        
+            while gameIsPlaying:
+                if turn == 'player1':
+                    # Player1's turn.
+                    Board.drawBoard(theBoard)
+                    move1 = Player.getPlayer1Move(theBoard)
+                    Board.makeMove(theBoard, playerLetter1, move1)
+        
+                    if Player.isWinner(theBoard, playerLetter1):
+                        Board.drawBoard(theBoard)
+                        print('Player 1 has won!')
+                        gameIsPlaying = False
+                    else:
+                        if Board.isBoardFull(theBoard):
+                            Board.drawBoard(theBoard)
+                            print('The game is a tie!')
+                            break
+                        else:
+                            turn = 'player2'
+
+                else:
+                    # Player2's turn.
+                    Board.drawBoard(theBoard)
+                    move2 = Player.getPlayer2Move(theBoard)
+                    Board.makeMove(theBoard, playerLetter2, move2)
+        
+                    if Player.isWinner(theBoard, playerLetter2):
+                        Board.drawBoard(theBoard)
+                        print('Player 2 has won!')
+                        gameIsPlaying = False
+                    else:
+                        if Board.isBoardFull(theBoard):
+                            Board.drawBoard(theBoard)
+                            print('The game is a tie!')
+                            break
+                        else:
+                            turn = 'player1'
+
+            if not Player.playAgain():
+                break
+
+TicTac.startGame()
+
+
+
+
