@@ -4,7 +4,7 @@ print('Decide now who is going to be Player 1 and Player 2. Press enter to conti
 print('This is the board in which you must choose to place your x or o.\nIt is labeled from 1 to 9')
 print('''
       |      |
-  7   |   8  |   9
+  1   |   2  |   3
       |      |
 --------------------
       |      |
@@ -12,7 +12,7 @@ print('''
       |      |
 --------------------
       |      |
-  1   |   2  |  3
+  7   |   8  |   9
       |      |
 ''')
 print('Press enter to continue.')
