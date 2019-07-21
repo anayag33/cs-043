@@ -110,6 +110,21 @@ class TicTac:
     def startGame():
         print('Welcome to Tic Tac Toe! Grab your friend because this is a player vs. player game.')
         print('Decide now who is going to be Player 1 and Player 2. Press enter to continue')
+        print('This is the board in which you must choose to place your x or o.\nIt is labeled from 1 to 9')
+        print('''
+                  |      |
+              7   |   8  |   9
+                  |      |
+            --------------------
+                  |      |
+              4   |   5  |   6
+                  |      |
+            --------------------
+                  |      |
+              1   |   2  |  3
+                  |      |
+               ''')
+        print('Press enter to continue.')
         input()
 
         while True:
